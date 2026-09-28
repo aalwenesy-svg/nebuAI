@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ne Bu? — AI Görsel Tanıma</title>
+<meta name="theme-color" content="#30312f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ne Bu?">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <video id="video" autoplay playsinline muted></video>
+  <canvas id="canvas"></canvas>
+  <div class="shade"></div>
+  <header>
+    <div class="brand">Ne Bu?</div>
+    <div class="actions">
+      <button id="historyBtn" class="icon" title="Geçmiş">↶</button>
+      <button id="settingsBtn" class="icon" title="Ayarlar">⚙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="frame">
+      <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
+    </div>
+    <p id="caption">Bir bitki, hayvan veya nesneyi çerçeveye al</p>
+  </main>
+
+  <footer>
+    <button id="flipBtn" class="round">↻</button>
+    <button id="captureBtn" class="capture" aria-label="Fotoğraf çek"><span></span></button>
+    <div class="round placeholder"></div>
+  </footer>
+
+  <section id="permission" class="overlay hidden">
+    <div class="card center">
+      <div class="big">📷</div>
+      <h2>Kamera izni gerekiyor</h2>
+      <p>Kamerayı kullanabilmek için tarayıcı izni vermelisin.</p>
+      <button id="grantBtn" class="primary">Kamerayı Aç</button>
+    </div>
+  </section>
+
+  <section id="loading" class="overlay hidden">
+    <div class="loader"></div>
+    <p id="loadingText">Yapay zekâ görüntüyü inceliyor…</p>
+  </section>
+
+  <section id="result" class="sheet hidden">
+    <div class="handle"></div>
+    <div class="result-scroll">
+      <img id="resultImage" class="result-image" alt="Analiz edilen görüntü">
+      <div id="resultTag" class="tag">—</div>
+      <h1 id="resultName">—</h1>
+      <div id="resultLatin" class="latin"></div>
+      <p id="resultDescription"></p>
+      <h3>Bilgiler</h3>
+      <ul id="facts"></ul>
+      <div class="confidence"><span>Eminlik</span><strong id="confidence">—</strong></div>
+      <div class="buttons">
+        <button id="closeResult" class="secondary">Kapat</button>
+        <button id="retakeBtn" class="primary">Tekrar Çek</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="history" class="panel hidden">
+    <header class="panel-head"><button class="icon" id="closeHistory">‹</button><h2>Geçmiş</h2></header>
+    <div id="historyList" class="list"></div>
+  </section>
+
+  <section id="settings" class="panel hidden">
+    <header class="panel-head"><button class="icon" id="closeSettings">‹</button><h2>Ayarlar</h2></header>
+    <div class="settings-body">
+      <label for="apiKey">Groq API anahtarı</label>
+      <input id="apiKey" type="password" placeholder="gsk_..." autocomplete="off" spellcheck="false">
+      <label for="apiModel">Model (boş bırakırsan varsayılan)</label>
+      <input id="apiModel" type="text" placeholder="qwen/qwen3.8-27b" autocomplete="off" spellcheck="false">
+      <p>Anahtar yalnızca bu telefonda saklanır, Groq'tan başka yere gitmez. Ücretsiz anahtar: console.groq.com/keys</p>
+      <button id="saveSettings" class="primary wide">Kaydet</button>
+      <button id="clearHistory" class="secondary wide">Geçmişi Temizle</button>
+    </div>
+  </section>
+
+  <div id="toast"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
